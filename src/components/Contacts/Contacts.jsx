@@ -1,28 +1,31 @@
-import {
-  ContactsList,
-  ContactItem,
-  Container,
-  ContactName,
-  ContactNumber,
-  DeleteContactButton,
-} from './Contacts.styled';
+import { useSelector } from 'react-redux';
 
-const Contacts = ({ contacts, onDeleteContact }) => {
+import { ContactsList } from './Contacts.styled';
+import { ContactListItem } from './ContactListItem';
+
+import { getContacts, getFilterValue } from '../../redux/selectors';
+
+const Contacts = () => {
+  const { filter } = useSelector(getFilterValue);
+  const { contacts } = useSelector(getContacts);
+
+  const getVisibleContacts = () => {
+    if (filter.filter === '') return;
+
+    const normilezedFilter = filter.toLowerCase().trim();
+
+    const visibleContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().trim().includes(normilezedFilter)
+    );
+    return visibleContacts;
+  };
+
+  const visibleContacts = getVisibleContacts();
+
   return (
     <ContactsList>
-      {contacts.map(({ id, name, number }) => (
-        <ContactItem key={id}>
-          <Container>
-            <ContactName>{name}</ContactName>
-            <ContactNumber>{number}</ContactNumber>
-          </Container>
-          <DeleteContactButton
-            type="button"
-            onClick={() => onDeleteContact(id)}
-          >
-            delete
-          </DeleteContactButton>
-        </ContactItem>
+      {visibleContacts.map(({ id, name, number }) => (
+        <ContactListItem key={id} name={name} number={number} />
       ))}
     </ContactsList>
   );

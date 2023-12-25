@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from '../../redux/selectors';
+import { addContact } from '../../redux/contactsSlice';
 
 import {
   PhonebookForm,
@@ -7,9 +11,26 @@ import {
   PhonebookButtonAddContact,
 } from './ContactForm.styled';
 
-const ContactForm = ({ onSubmit }) => {
+const ContactForm = ({ submit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const { contacts } = useSelector(getContacts);
+  const dispatch = useDispatch();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const isExist = contacts.some(contact => contact.name === name);
+
+    if (isExist) {
+      alert();
+    }
+
+    dispatch(addContact({ name, number, id: nanoid() }));
+
+    setName('');
+    setNumber('');
+  };
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -28,16 +49,8 @@ const ContactForm = ({ onSubmit }) => {
     }
   };
 
-  const submitHandler = e => {
-    e.preventDefault();
-
-    onSubmit({ name, number });
-    setName('');
-    setNumber('');
-  };
-
   return (
-    <PhonebookForm onSubmit={submitHandler}>
+    <PhonebookForm onSubmit={handleSubmit}>
       <PhonebookLabel>
         Name
         <PhonebookInput
