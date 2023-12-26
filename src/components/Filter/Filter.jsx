@@ -1,22 +1,23 @@
-import { useDispatch } from 'react-redux';
+import { Input } from './Filter.styled';
+import { getFilterValue } from '../../redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchFilterAction } from '../../redux/filterSlice';
 
-// import { getFilterValue } from '../../redux/selectors';
-import { searchFilter } from '../../redux/filterSlice';
-import { ContactInput } from './Filter.styled';
-
-const Filter = ({ value, onChange }) => {
-  // const { filter } = useSelector(getFilterValue);
+const Filter = () => {
+  const { filter } = useSelector(getFilterValue);
   const dispatch = useDispatch();
 
-  const filterChange = e => dispatch(searchFilter(e.target.value));
+  const filterChange = e => {
+    dispatch(setSearchFilterAction(e.target.value));
+  };
 
   return (
     <label>
-      <ContactInput
+      <Input
         type="text"
         name="search"
         placeholder="Search..."
-        value={value}
+        value={filter}
         onChange={filterChange}
       />
     </label>

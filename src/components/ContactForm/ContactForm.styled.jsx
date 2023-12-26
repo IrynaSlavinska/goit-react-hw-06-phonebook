@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
 
-export const PhonebookForm = styled.form`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
 `;
 
-export const PhonebookLabel = styled.label`
+export const Label = styled.label`
   display: flex;
   flex-direction: column;
   margin-bottom: 16px;
 `;
 
-export const PhonebookInput = styled.input`
+export const Input = styled.input`
   font-size: 20px;
   padding: 12px;
   border-radius: 8px;
@@ -27,7 +27,7 @@ export const PhonebookInput = styled.input`
   }
 `;
 
-export const PhonebookButtonAddContact = styled.button`
+export const AddContactBtn = styled.button`
   padding: 12px;
   border-radius: 8px;
   border: none;

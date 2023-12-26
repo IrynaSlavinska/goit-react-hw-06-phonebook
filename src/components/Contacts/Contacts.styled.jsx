@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
-export const ContactsList = styled.ul``;
-export const ContactItem = styled.li`
+export const List = styled.ul``;
+export const Item = styled.li`
   margin-bottom: 16px;
   display: flex;
   justify-content: space-between;
@@ -13,16 +13,16 @@ export const ContactItem = styled.li`
 
 export const Container = styled.div``;
 
-export const ContactName = styled.p`
+export const Name = styled.p`
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 4px;
 `;
 
-export const ContactNumber = styled.p`
+export const Number = styled.p`
   margin-bottom: 4px;
 `;
-export const DeleteContactButton = styled.button`
+export const DeleteContactBtn = styled.button`
   background-color: #a1c487;
   height: 40px;
   padding: 8px 20px;

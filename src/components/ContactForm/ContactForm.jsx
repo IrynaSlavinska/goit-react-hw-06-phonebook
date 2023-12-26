@@ -1,17 +1,14 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
+import Notiflix from 'notiflix';
+
 import { getContacts } from '../../redux/selectors';
-import { addContact } from '../../redux/contactsSlice';
+import { addContactAction } from '../../redux/contactsSlice';
 
-import {
-  PhonebookForm,
-  PhonebookLabel,
-  PhonebookInput,
-  PhonebookButtonAddContact,
-} from './ContactForm.styled';
+import { Form, Label, Input, AddContactBtn } from './ContactForm.styled';
 
-const ContactForm = ({ submit }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -23,10 +20,12 @@ const ContactForm = ({ submit }) => {
     const isExist = contacts.some(contact => contact.name === name);
 
     if (isExist) {
-      alert();
+      return Notiflix.Notify.warning('Contact is already in your phonebook', {
+        timeout: 3000,
+      });
     }
 
-    dispatch(addContact({ name, number, id: nanoid() }));
+    dispatch(addContactAction({ name, number, id: nanoid() }));
 
     setName('');
     setNumber('');
@@ -50,10 +49,10 @@ const ContactForm = ({ submit }) => {
   };
 
   return (
-    <PhonebookForm onSubmit={handleSubmit}>
-      <PhonebookLabel>
+    <Form onSubmit={handleSubmit}>
+      <Label>
         Name
-        <PhonebookInput
+        <Input
           type="text"
           name="name"
           value={name}
@@ -61,11 +60,11 @@ const ContactForm = ({ submit }) => {
           required
           placeholder="Enter name"
         />
-      </PhonebookLabel>
+      </Label>
 
-      <PhonebookLabel>
+      <Label>
         Number
-        <PhonebookInput
+        <Input
           type="tel"
           name="number"
           value={number}
@@ -73,12 +72,10 @@ const ContactForm = ({ submit }) => {
           required
           placeholder="Enter tel"
         />
-      </PhonebookLabel>
+      </Label>
 
-      <PhonebookButtonAddContact type="submit">
-        Add contact
-      </PhonebookButtonAddContact>
-    </PhonebookForm>
+      <AddContactBtn type="submit">Add contact</AddContactBtn>
+    </Form>
   );
 };
 

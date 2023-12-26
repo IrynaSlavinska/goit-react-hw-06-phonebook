@@ -17,7 +17,7 @@ export const PartContainer = styled.div`
   box-shadow: 0 5px 15px #3b4b2f;
 `;
 
-export const PhonebookTitle = styled.h2`
+export const Title = styled.h2`
   font-size: 32px;
   margin-bottom: 16px;
 `;

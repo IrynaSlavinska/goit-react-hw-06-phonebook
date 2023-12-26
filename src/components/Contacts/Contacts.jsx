@@ -1,33 +1,50 @@
-import { useSelector } from 'react-redux';
-
-import { ContactsList } from './Contacts.styled';
-import { ContactListItem } from './ContactListItem';
-
+import { useSelector, useDispatch } from 'react-redux';
 import { getContacts, getFilterValue } from '../../redux/selectors';
+import { deleteContactAction } from '../../redux/contactsSlice';
+import {
+  List,
+  Item,
+  Container,
+  Name,
+  Number,
+  DeleteContactBtn,
+} from './Contacts.styled';
+import { MdDelete } from 'react-icons/md';
 
 const Contacts = () => {
   const { filter } = useSelector(getFilterValue);
   const { contacts } = useSelector(getContacts);
 
-  const getVisibleContacts = () => {
+  const dispatch = useDispatch();
+  const deleteContact = delId => dispatch(deleteContactAction(delId));
+
+  const getFilteredContacts = () => {
     if (filter.filter === '') return;
 
     const normilezedFilter = filter.toLowerCase().trim();
-
     const visibleContacts = contacts.filter(contact =>
-      contact.name.toLowerCase().trim().includes(normilezedFilter)
+      contact.name.toLowerCase().includes(normilezedFilter)
     );
+
     return visibleContacts;
   };
 
-  const visibleContacts = getVisibleContacts();
+  const visibleContacts = getFilteredContacts();
 
   return (
-    <ContactsList>
+    <List>
       {visibleContacts.map(({ id, name, number }) => (
-        <ContactListItem key={id} name={name} number={number} />
+        <Item key={id}>
+          <Container>
+            <Name>{name}</Name>
+            <Number>{number}</Number>
+          </Container>
+          <DeleteContactBtn type="button" onClick={() => deleteContact(id)}>
+            <MdDelete />
+          </DeleteContactBtn>
+        </Item>
       ))}
-    </ContactsList>
+    </List>
   );
 };
 

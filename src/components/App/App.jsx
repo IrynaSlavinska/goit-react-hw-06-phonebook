@@ -2,23 +2,21 @@ import ContactForm from '../ContactForm/ContactForm';
 import Contacts from '../Contacts/Contacts';
 import Filter from '../Filter/Filter';
 
-import { Container, PartContainer, PhonebookTitle } from './App.styled';
+import { Container, PartContainer, Title } from './App.styled';
 
-function App() {
+export const App = () => {
   return (
     <Container>
       <PartContainer>
-        <PhonebookTitle>Phonebook</PhonebookTitle>
+        <Title>Phonebook</Title>
         <ContactForm />
       </PartContainer>
 
       <PartContainer>
-        <PhonebookTitle>Contacts</PhonebookTitle>
+        <Title>Contacts</Title>
         <Filter />
         <Contacts />
       </PartContainer>
     </Container>
   );
-}
-
-export default App;
+};

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const ContactInput = styled.input`
+export const Input = styled.input`
   width: 95%;
   font-size: 20px;
   padding: 12px;
