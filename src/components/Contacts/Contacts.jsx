@@ -12,8 +12,8 @@ import {
 import { MdDelete } from 'react-icons/md';
 
 const Contacts = () => {
-  const { filter } = useSelector(getFilterValue);
-  const { contacts } = useSelector(getContacts);
+  const filter = useSelector(getFilterValue);
+  const contacts = useSelector(getContacts);
 
   const dispatch = useDispatch();
   const deleteContact = delId => dispatch(deleteContactAction(delId));
